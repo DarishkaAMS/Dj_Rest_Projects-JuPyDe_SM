@@ -1,0 +1,70 @@
+{% extends "MainApp/base.html" %}
+
+{% block content %}
+{% load static %}
+<!-- HERO SECTION  -->
+	<div class="site-hero">
+		<ul class="slides">
+			<li>
+				<div><span class="small-title uppercase montserrat-text">welcome to</span></div>
+				<div class="big-title uppercase montserrat-text">login</div>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua.</p>
+			</li>
+			<li>
+				<div><span class="small-title uppercase montserrat-text">welcome to</span></div>
+				<div class="big-title uppercase montserrat-text">next step</div>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. </p>
+			</li>
+		</ul>
+	</div>
+
+	<!-- LOGIN FORM -->
+	<div class="container">
+		<div class="agency">
+			<div class="col-md-5 col-sm-12">
+				<div class="row">
+					<img src="{% static 'MainApp/img/login.jpg' %}" alt="image">
+				</div>
+			</div>
+			<div class="col-md-offset-1 col-md-6 col-sm-12">
+				<div class="row">
+					<div class="section-title">
+						<span>Let's start our journey</span>
+					</div>
+					<p>
+                        <form action="#" method="post">
+                            {% csrf_token %}
+                            <div class="input_1">
+                                <input type="email" name="email" class="input_1" required>
+                                <span>your email please</span>
+                            </div>
+                            <br/>
+                            <div class="input_1">
+                                <input type="password" name="password" class="input_1" required>
+                                <span>your password please</span>
+                            </div>
+                            {% for field in login_form %}
+                                <p>
+                                    {% for error in field.errors %}
+                                    <p style="color:red">{{error}}</p>
+                                    {% endfor %}
+                                </p>
+                            {% endfor %}
+                            {% if login_form.non_field_errors %}
+                                <div style="color:red">
+                                    <p>{{ login_form.non_field_errors }}</p>
+                                </div>
+                            {% endif %}
+                            <button type="submit" class="btn green" style="margin-top:20px"><span>Login</span></button>
+                            <a class="btn black" style="margin-top:20px" role="button" href="{% url 'password_reset'%}"><span>Reset Password</span></a>
+                        </form>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
