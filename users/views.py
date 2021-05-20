@@ -30,7 +30,7 @@ def register_page_view(request, *args, **kwargs):
         else:
             context['registration_form'] = form
 
-    return render(request, 'account/register.html', context)
+    return render(request, 'users/register.html', context)
 
 
 def login_page_view(request, *args, **kwargs):
@@ -55,7 +55,7 @@ def login_page_view(request, *args, **kwargs):
         else:
             context['login_form'] = form
 
-    return render(request, 'account/login.html', context)
+    return render(request, 'users/login.html', context)
 
 
 def get_redirect_if_exists(request):
@@ -71,8 +71,8 @@ def logout_view(request):
     return redirect("index")
 
 
-def account_page_view(request, *args, **kwargs):
-    template = 'account/account_page.html'
+def user_page_view(request, *args, **kwargs):
+    template = 'users/user_page.html'
     context = {}
     # user_name = kwargs.get("user_name")
     user_id = kwargs.get("user_id")
@@ -84,7 +84,6 @@ def account_page_view(request, *args, **kwargs):
         context['id'] = account.id
         context['username'] = account.username
         context['email'] = account.email
-        context['profile_image'] = account.profile_image
         context['hide_email'] = account.hide_email
 
         is_self = True

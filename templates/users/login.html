@@ -1,33 +1,13 @@
-{% extends "MainApp/base.html" %}
+{% extends "JuPyDe_SM/base.html" %}
 
 {% block content %}
 {% load static %}
-<!-- HERO SECTION  -->
-	<div class="site-hero">
-		<ul class="slides">
-			<li>
-				<div><span class="small-title uppercase montserrat-text">welcome to</span></div>
-				<div class="big-title uppercase montserrat-text">login</div>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua.</p>
-			</li>
-			<li>
-				<div><span class="small-title uppercase montserrat-text">welcome to</span></div>
-				<div class="big-title uppercase montserrat-text">next step</div>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				consequat. </p>
-			</li>
-		</ul>
-	</div>
-
 	<!-- LOGIN FORM -->
 	<div class="container">
 		<div class="agency">
 			<div class="col-md-5 col-sm-12">
 				<div class="row">
-					<img src="{% static 'MainApp/img/login.jpg' %}" alt="image">
+					<img src="{% static '/users/login_page.jpg' %}" alt="LOGIN image">
 				</div>
 			</div>
 			<div class="col-md-offset-1 col-md-6 col-sm-12">
@@ -60,7 +40,7 @@
                                 </div>
                             {% endif %}
                             <button type="submit" class="btn green" style="margin-top:20px"><span>Login</span></button>
-                            <a class="btn black" style="margin-top:20px" role="button" href="{% url 'password_reset'%}"><span>Reset Password</span></a>
+                            <a class="btn black" style="margin-top:20px" role="button" href="#"><span>Reset Password</span></a>
                         </form>
 					</p>
 				</div>
