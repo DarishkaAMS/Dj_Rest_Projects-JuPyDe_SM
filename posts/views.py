@@ -6,16 +6,20 @@ from .models import Post
 
 
 def post_detail_view(request, post_id, *args, **kwargs):
-    try:
-        obj = Post.objects.get(id=post_id)
-    except:
-        raise Http404
     data = {
         "id": post_id,
-        "title": obj.title,
-        "slug": obj.slug,
-        "content": obj.content,
-        "upload_date": obj.upload_date,
-        # "image_path": obj.image.url,
     }
-    return JsonResponse(data)
+    status = 200
+    try:
+        obj = Post.objects.get(id=post_id)
+        data['content'] = obj.content,
+        data['title'] = obj.title,
+        data['slug'] = obj.slug,
+        data['content'] = obj.content,
+        data['upload_date'] = obj.upload_date,
+        data['image_path'] = obj.image.url,
+    except:
+        data['message'] = f"Oops... I have not found {post_id}"
+        status = 200
+
+    return JsonResponse(data, status=status)
