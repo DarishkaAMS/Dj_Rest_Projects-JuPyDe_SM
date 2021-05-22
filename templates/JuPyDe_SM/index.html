@@ -4,7 +4,26 @@
     {% include 'JuPyDe_SM/messages.html' %}
 
     <h1> Our posts </h1> <h6> so far </h6>
-    <div class="row">
+    <div id='posts' class="row">
         Posts are coming
     </div>
+    <script> 
+        const postsElement = document.getElementById('posts')
+        postsElement.innerHTML = "I'm loading the content... "
+        
+        const xhr = new XMLHttpRequest()
+        const method = 'GET'
+        const url  = '/posts'
+        const responseType = 'json'
+        
+        xhr.responseType = responseType
+        xhr.open(method, url)
+        xhr.onload = function() {
+            const serverResponse = xhr.response
+            var listedItems = serverResponse.response
+            console.log(listedItems)
+        }
+        xhr.send()
+        
+    </script> 
 {% endblock %}
