@@ -1,6 +1,8 @@
 from django.db.models.signals import pre_save, post_save
 from django.shortcuts import render
 from rest_framework import generics, status, views, permissions, viewsets
+from rest_framework.views import APIView
+
 from .serializers import RegisterSerializer, SetNewPasswordSerializer, ResetPasswordEmailRequestSerializer, \
     EmailVerificationSerializer, LoginSerializer, LogoutSerializer, LastLoginSerializer
 from rest_framework.response import Response
@@ -23,6 +25,7 @@ from django.shortcuts import redirect
 from django.http import HttpResponsePermanentRedirect
 import os
 from django.dispatch import receiver
+import datetime
 
 
 class CustomRedirect(HttpResponsePermanentRedirect):
@@ -165,14 +168,16 @@ class LogoutAPIView(generics.GenericAPIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class UserActivityAPIView(generics.GenericAPIView):
-    serializer_class = LastLoginSerializer
-    queryset = User.objects.all()
-    permission_classes = (permissions.IsAuthenticated,)
+class UserActivityAPIView(APIView):
     lookup_field = "id"
 
-    def perform_create(self, serializer):
-        return serializer.save(user=self.request.user)
+    def get(self, request):
+        # id = self.context['request'].user.id
+        user = User.objects.all()[1] #  FIXME with ID requests
+        print("REQUEST", request.user)
+        print("USER", user)
+        last_login = user.last_login
+        final = {"last_login": last_login}
+        return Response({"login_data": final}, status=status.HTTP_200_OK)
 
-    def get_queryset(self):
-        return self.queryset.filter(user=self.request.user)
+
