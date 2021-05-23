@@ -31,7 +31,7 @@ schema_view = get_schema_view(
         contact=openapi.Contact(email="contact@jupyde_sm.local"),
         license=openapi.License(name="TEST License"),
     ),
-    validators=['ssv', 'flex'],
+    # validators=['ssv', 'flex'],
     public=True,
     permission_classes=(permissions.AllowAny,),
 )
@@ -41,6 +41,10 @@ urlpatterns = [
     # path('', home_page_view, name='index'),
     path('posts/', include('posts.urls')),
     path('authentication/', include('authentication.urls')),
+
+    path('api-auth/', include('rest_framework.urls')),
+    path('authentication/', include('djoser.urls')),
+    path('authentication/', include('djoser.urls.jwt')),
     path('', schema_view.with_ui('swagger', cache_timeout=None), name='schema-swagger-ui'),
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=None), name='schema-redoc'),
+    # path('redoc/', schema_view.with_ui('redoc', cache_timeout=None), name='schema-redoc'),
 ]
