@@ -153,3 +153,10 @@ class LastLoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['email', 'username', 'last_login']
+
+
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'last_login']

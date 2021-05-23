@@ -168,9 +168,14 @@ class LogoutAPIView(generics.GenericAPIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-# class UserActivityAPIView(generics.GenericAPIView):
-#     serializer_class = LastLoginSerializer
-#     def get(self, request, pk=None):
-#
-#
-#     return Response({'last_login': user.last_login}, status=status.HTTP_200_OK)
+class UserActivityAPIView(generics.GenericAPIView):
+    serializer_class = LastLoginSerializer
+    queryset = User.objects.all()
+    permission_classes = (permissions.IsAuthenticated,)
+    lookup_field = "id"
+
+    def perform_create(self, serializer):
+        return serializer.save(user=self.request.user)
+
+    def get_queryset(self):
+        return self.queryset.filter(user=self.request.user)
