@@ -171,6 +171,10 @@ REST_FRAMEWORK = {
     )
 }
 
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=15),
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=1),
+}
 
 # JWT_AUTH = {
 #     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=2),
@@ -189,8 +193,6 @@ REST_FRAMEWORK = {
 #     'PASSWORD_RESET_CONFIRM_URL': 'authentication/reset/confirm/{uid}/{token}/',
 #     'TOKEN_MODEL': None
 # }
-#
-# SIMPLE_JWT = {
-#    'AUTH_HEADER_TYPES': ('JWT',),
-# }
-#
+
+
+
