@@ -174,6 +174,7 @@ class UserActivityAPIView(APIView):
     def get(self, request):
         # id = self.context['request'].user.id
         user = User.objects.all()[1] #  FIXME with ID requests
+        # user = User.objects.get(username=request.user)
         print("REQUEST", request.user)
         print("USER", user)
         last_login = user.last_login
