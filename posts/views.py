@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework import permissions
 from .models import Post
@@ -30,4 +30,7 @@ class PostDetailAPIView(RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return self.queryset.filter(author=self.request.user)
+
+
+
 
