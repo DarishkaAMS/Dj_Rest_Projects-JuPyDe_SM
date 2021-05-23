@@ -19,22 +19,19 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
-from .views import home_page_view
 
-
-# schema_view = get_schema_view(
-#     openapi.Info(
-#         title="JuPyDe_SM API",
-#         default_version='v1',
-#         description="Test description",
-#         terms_of_service="https://www.ourapp.com/policies/terms/",
-#         contact=openapi.Contact(email="contact@jupyde_sm.local"),
-#         license=openapi.License(name="TEST License"),
-#     ),
-#     # validators=['ssv', 'flex'],
-#     public=True,
-#     permission_classes=(permissions.AllowAny,),
-# )
+schema_view = get_schema_view(
+    openapi.Info(
+        title="JuPyDe_SM API",
+        default_version='v1',
+        description="Test description",
+        terms_of_service="https://www.JuPyDe.com/policies/terms/",  # I don't have mine so far :(
+        contact=openapi.Contact(email="contact@JuPyDe.local"), # I don't have mine so far :(
+        license=openapi.License(name="Test License"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -45,6 +42,8 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
-    # path('', schema_view.with_ui('swagger', cache_timeout=None), name='schema-swagger-ui'),
-    # # path('redoc/', schema_view.with_ui('redoc', cache_timeout=None), name='schema-redoc'),
+    path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+
+    path('api/api.json/', schema_view.without_ui(cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
