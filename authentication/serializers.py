@@ -44,6 +44,7 @@ class LoginSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(max_length=255, min_length=8)
     password = serializers.CharField(max_length=68, min_length=6, write_only=True)
     username = serializers.CharField(max_length=255, min_length=3, read_only=True)
+    # last_login = serializers.DateTimeField()
     tokens = serializers.SerializerMethodField()
 
     def get_tokens(self, obj):
@@ -142,3 +143,13 @@ class LogoutSerializer(serializers.Serializer):
 
         except TokenError:
             self.fail('bad_token')
+
+
+class LastLoginSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(max_length=255, min_length=8)
+    username = serializers.CharField(max_length=255, min_length=3, read_only=True)
+    last_login = serializers.DateTimeField()
+
+    class Meta:
+        model = User
+        fields = ['email', 'username', 'last_login']

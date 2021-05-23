@@ -3,6 +3,8 @@ from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin)
 
 from django.db import models
+from django.db.models.signals import post_save, pre_save
+from django.dispatch import receiver
 from rest_framework_simplejwt.tokens import RefreshToken
 
 # Create your models here.

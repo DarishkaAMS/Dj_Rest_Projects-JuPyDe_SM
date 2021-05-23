@@ -1,36 +1,33 @@
-from django.http import Http404, JsonResponse
 from django.shortcuts import render
-
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework import permissions
 from .models import Post
-
-
+from .permisions import IsAuthor
+from .serializers import PostSerializer
 # Create your views here.
 
 
-def post_list_view(requests, *args, **kwargs):
-    query_set = Post.objects.all()
-    post_list = [{"id": post.id, "title": post.title, "slug": post.slug, "content": post.content,
-                  "upload_date": post.upload_date} for post in query_set]
-    data = {
-        "response": post_list
-    }
+class PostListAPIView(ListCreateAPIView):
+    serializer_class = PostSerializer
+    queryset = Post.objects.all()
+    permission_classes = (permissions.IsAuthenticated,)
 
-    return JsonResponse(data)
+    def perform_create(self, serializer):
+        return serializer.save(author=self.request.user)
+
+    def get_queryset(self):
+        return self.queryset.filter(author=self.request.user)
 
 
-def post_detail_view(request, post_id, *args, **kwargs):
-    data = {
-        "id": post_id,
-    }
-    status = 200
-    try:
-        obj = Post.objects.get(id=post_id)
-        data['title'] = obj.title,
-        data['slug'] = obj.slug,
-        data['content'] = obj.content,
-        data['upload_date'] = obj.upload_date,
-    except:
-        data['message'] = f"Oops... I have not found {post_id}"
-        status = 200
+class PostDetailAPIView(RetrieveUpdateDestroyAPIView):
+    serializer_class = PostSerializer
+    queryset = Post.objects.all()
+    permission_classes = (permissions.IsAuthenticated,)
+    lookup_field = "id"
 
-    return JsonResponse(data, status=status)
+    def perform_create(self, serializer):
+        return serializer.save(author=self.request.user)
+
+    def get_queryset(self):
+        return self.queryset.filter(author=self.request.user)
+

@@ -1,7 +1,8 @@
+from django.db.models.signals import pre_save, post_save
 from django.shortcuts import render
-from rest_framework import generics, status, views, permissions
+from rest_framework import generics, status, views, permissions, viewsets
 from .serializers import RegisterSerializer, SetNewPasswordSerializer, ResetPasswordEmailRequestSerializer, \
-    EmailVerificationSerializer, LoginSerializer, LogoutSerializer
+    EmailVerificationSerializer, LoginSerializer, LogoutSerializer, LastLoginSerializer
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import User
@@ -21,6 +22,7 @@ from .utils import Util
 from django.shortcuts import redirect
 from django.http import HttpResponsePermanentRedirect
 import os
+from django.dispatch import receiver
 
 
 class CustomRedirect(HttpResponsePermanentRedirect):
@@ -164,3 +166,11 @@ class LogoutAPIView(generics.GenericAPIView):
         serializer.save()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+# class UserActivityAPIView(generics.GenericAPIView):
+#     serializer_class = LastLoginSerializer
+#     def get(self, request, pk=None):
+#
+#
+#     return Response({'last_login': user.last_login}, status=status.HTTP_200_OK)
