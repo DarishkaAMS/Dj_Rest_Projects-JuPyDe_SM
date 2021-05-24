@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     # 'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
     'drf_yasg',
+    'likes',
 
     'authentication',
     'posts',
@@ -163,6 +164,12 @@ EMAIL_PORT = 587
 load_dotenv()
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
+LIKES_MODELS = {
+    "posts.Model": {
+        'serializer': 'posts.api.serializer.PostSerializer'
+    },
+}
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
