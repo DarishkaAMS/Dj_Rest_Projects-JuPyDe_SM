@@ -10,6 +10,7 @@ defusedxml==0.7.1
 Django==3.2.3
 django-allauth==0.44.0
 django-cors-headers==3.7.0
+django-ok-likes==0.7.4
 django-templated-mail==1.1.1
 djangorestframework==3.12.4
 djangorestframework-jsonapi==4.2.0
@@ -29,7 +30,7 @@ oauthlib==3.1.0
 packaging==20.9
 Pillow==8.2.0
 pycparser==2.20
-PyJWT==2.1.0
+PyJWT==1.7.1
 pyparsing==2.4.7
 pyrsistent==0.17.3
 python-dateutil==2.8.1
