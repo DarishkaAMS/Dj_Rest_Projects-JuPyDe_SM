@@ -1,28 +1,26 @@
-from django.db.models.signals import pre_save, post_save
-from django.shortcuts import render
-from rest_framework import generics, status, views, permissions, viewsets
-from rest_framework.views import APIView
 
-from .serializers import RegisterSerializer, SetNewPasswordSerializer, ResetPasswordEmailRequestSerializer, \
-    EmailVerificationSerializer, LoginSerializer, LogoutSerializer, LastLoginSerializer
-from rest_framework.response import Response
-from rest_framework_simplejwt.tokens import RefreshToken
-from .models import User
-from django.contrib.sites.shortcuts import get_current_site
-from django.urls import reverse
-import jwt
 from django.conf import settings
-from drf_yasg.utils import swagger_auto_schema
-from drf_yasg import openapi
-from .renderers import UserRenderer
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
+from django.contrib.sites.shortcuts import get_current_site
+from django.http import HttpResponsePermanentRedirect
+from django.urls import reverse
 from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from django.contrib.sites.shortcuts import get_current_site
-from django.urls import reverse
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
+import jwt
+
+from rest_framework import generics, status, views, permissions
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
+
+from .models import User
+from .renderers import UserRenderer
+from .serializers import RegisterSerializer, SetNewPasswordSerializer, ResetPasswordEmailRequestSerializer, \
+    EmailVerificationSerializer, LoginSerializer, LogoutSerializer
 from .utils import Util
-from django.shortcuts import redirect
-from django.http import HttpResponsePermanentRedirect
+
 import os
 from django.dispatch import receiver
 import datetime
@@ -172,13 +170,12 @@ class UserActivityAPIView(APIView):
     lookup_field = "id"
 
     def get(self, request):
-        # id = self.context['request'].user.id
         user = User.objects.all()[1] #  FIXME with ID requests
         # user = User.objects.get(username=request.user)
         print("REQUEST", request.user)
         print("USER", user)
         last_login = user.last_login
-        final = {"last_login": last_login}
+        final = {"last_login": last_login, "error": "This should be fixed"}
         return Response({"login_data": final}, status=status.HTTP_200_OK)
 
 

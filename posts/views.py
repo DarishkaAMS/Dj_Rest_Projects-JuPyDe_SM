@@ -1,12 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from rest_framework import permissions
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework import permissions, status
-from rest_framework.views import APIView
-from rest_framework.response import Response
+
 from authentication.models import User
 from .models import Post, PostLike
-from .permisions import IsAuthor
-from .serializers import PostSerializer, PostlikeSerializer
+from .serializers import PostSerializer
 # Create your views here.
 
 
