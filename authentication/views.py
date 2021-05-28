@@ -18,7 +18,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from .models import User
 from .renderers import UserRenderer
 from .serializers import RegisterSerializer, SetNewPasswordSerializer, ResetPasswordEmailRequestSerializer, \
-    EmailVerificationSerializer, LoginSerializer, LogoutSerializer
+    EmailVerificationSerializer, LoginSerializer, LogoutSerializer, UserActivitySerializer
 from .utils import Util
 
 import os
@@ -166,16 +166,19 @@ class LogoutAPIView(generics.GenericAPIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class UserActivityAPIView(APIView):
-    lookup_field = "id"
+# class UserActivityAPIView(APIView):
+#     lookup_field = "id"
 
-    def get(self, request):
-        user = User.objects.all()[1] #  FIXME with ID requests
-        # user = User.objects.get(username=request.user)
-        print("REQUEST", request.user)
-        print("USER", user)
-        last_login = user.last_login
-        final = {"last_login": last_login, "error": "This should be fixed"}
-        return Response({"login_data": final}, status=status.HTTP_200_OK)
+#     def get(self, request):
+#         user = User.objects.all()[1] #  FIXME with ID requests
+#         # user = User.objects.get(username=request.user)
+#         print("REQUEST", request.user)
+#         print("USER", user)
+#         last_login = user.last_login
+#         final = {"last_login": last_login, "error": "This should be fixed"}
+#         return Response({"login_data": final}, status=status.HTTP_200_OK)
 
 
+class ActivityUserView(generics.RetrieveAPIView):
+    queryset = StarnaviUser.objects.all()
+    serializer_class = UserActivitySerializer
