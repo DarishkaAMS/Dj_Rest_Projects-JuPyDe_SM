@@ -65,3 +65,15 @@ class PostLikeView(generics.CreateAPIView):
 class PostDislikeView(generics.CreateAPIView):
     queryset = Dislike.objects.all()
     serializer_class = DislikeSerializer
+
+    
+class PostAnaliticsLikesView(generics.ListAPIView):
+    serializer_class = LikeSerializer
+
+    def get(self, request, *args, **kwargs):
+        likes_analitic = Like.objects.filter(like_published__range=[kwargs['date_from'], kwargs['date_to']])
+        if len(likes_analitic) > 0:
+            mimetype = 'application/json'
+            return HttpResponse(json.dumps({'likes by period': len(likes_analitic)}), mimetype)
+        else:
+            return self.list(request, *args, [{}])
