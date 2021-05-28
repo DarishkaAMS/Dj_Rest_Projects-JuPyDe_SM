@@ -14,3 +14,20 @@ class PostlikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = PostLike
         fields = '__all__'
+        
+        
+ 
+class LikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Like
+        fields = (
+            'like_user', 'like_post', 'like', 'like_published'
+        )
+
+
+class DislikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Dislike
+        fields = (
+            'dislike_user', 'dislike_post', 'dislike', 'dislike_published'
+        )
