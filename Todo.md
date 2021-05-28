@@ -8,8 +8,8 @@
 - logout
 - profile
   - text
-  - image
-  - follow btn
+  - image TBD
+  - follow btn TBD
 - last login & last request tp the service
 
 ### Post 
@@ -21,6 +21,7 @@
 ### Additional
 
 - JWT token 
-- notifications
-- direct msgs
-- finding # 
+- notifications TBD
+- direct msgs TBD
+- finding #
+- chatbot TBD
