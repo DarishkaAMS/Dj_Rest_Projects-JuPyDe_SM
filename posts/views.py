@@ -2,8 +2,8 @@ from rest_framework import permissions
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
 from authentication.models import User
-from .models import Post, PostLike
-from .serializers import PostSerializer
+from .models import Post, PostLike, PostDislike
+from .serializers import PostSerializer, PostLikeSerializer, PostDislikeSerializer
 # Create your views here.
 
 
@@ -59,16 +59,16 @@ class PostDetailAPIView(RetrieveUpdateDestroyAPIView):
 
 class PostLikeView(generics.CreateAPIView):
     queryset = Like.objects.all()
-    serializer_class = LikeSerializer
+    serializer_class = PostLikeSerializer
 
 
 class PostDislikeView(generics.CreateAPIView):
     queryset = Dislike.objects.all()
-    serializer_class = DislikeSerializer
+    serializer_class = PostDislikeSerializer
 
     
 class PostAnaliticsLikesView(generics.ListAPIView):
-    serializer_class = LikeSerializer
+    serializer_class = PostLikeSerializer
 
     def get(self, request, *args, **kwargs):
         likes_analitic = Like.objects.filter(like_published__range=[kwargs['date_from'], kwargs['date_to']])
