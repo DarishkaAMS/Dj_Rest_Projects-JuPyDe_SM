@@ -10,14 +10,14 @@ class PostSerializer(serializers.ModelSerializer):
         fields = ['id', 'author', 'title', 'created_at', 'likes']
 
 
-class PostlikeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = PostLike
-        fields = '__all__'
+# class PostlikeSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = PostLike
+#         fields = '__all__'
         
         
  
-class LikeSerializer(serializers.ModelSerializer):
+class PostLikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Like
         fields = (
@@ -25,7 +25,7 @@ class LikeSerializer(serializers.ModelSerializer):
         )
 
 
-class DislikeSerializer(serializers.ModelSerializer):
+class PostDislikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dislike
         fields = (
