@@ -58,12 +58,12 @@ class PostDetailAPIView(RetrieveUpdateDestroyAPIView):
 #             like.save()
 
 class PostLikeView(generics.CreateAPIView):
-    queryset = Like.objects.all()
+    queryset = PostLike.objects.all()
     serializer_class = PostLikeSerializer
 
 
 class PostDislikeView(generics.CreateAPIView):
-    queryset = Dislike.objects.all()
+    queryset = PostDislike.objects.all()
     serializer_class = PostDislikeSerializer
 
     
@@ -71,7 +71,7 @@ class PostAnaliticsLikesView(generics.ListAPIView):
     serializer_class = PostLikeSerializer
 
     def get(self, request, *args, **kwargs):
-        likes_analitic = Like.objects.filter(like_published__range=[kwargs['date_from'], kwargs['date_to']])
+        likes_analitic = PostLike.objects.filter(like_published__range=[kwargs['date_from'], kwargs['date_to']])
         if len(likes_analitic) > 0:
             mimetype = 'application/json'
             return HttpResponse(json.dumps({'likes by period': len(likes_analitic)}), mimetype)
