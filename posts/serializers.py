@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Post, PostLike
+from .models import Post, PostLike, PostDislike
 
 
 class PostSerializer(serializers.ModelSerializer):
