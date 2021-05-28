@@ -35,14 +35,14 @@ class Post(models.Model):
 
 
 class PostLike(models.Model):
-    like_user = models.ForeignKey(StarnaviUser, related_name='like_user', on_delete=models.CASCADE)
+    like_user = models.ForeignKey(User, related_name='like_user', on_delete=models.CASCADE)
     like_post = models.ForeignKey(Post, related_name='like_post', on_delete=models.CASCADE)
     like = models.SmallIntegerField(default=0)
     like_published = models.DateField(format('%Y-%m-%d'), auto_now_add=True)
 
 
 class PostDislike(models.Model):
-    dislike_user = models.ForeignKey(StarnaviUser, related_name='dislike_user', on_delete=models.CASCADE)
+    dislike_user = models.ForeignKey(User, related_name='dislike_user', on_delete=models.CASCADE)
     dislike_post = models.ForeignKey(Post, related_name='dislike_post', on_delete=models.CASCADE)
     dislike = models.SmallIntegerField(default=0)
     dislike_published = models.DateField(format('%Y-%m-%d'), auto_now_add=True)
