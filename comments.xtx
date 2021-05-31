@@ -1,0 +1,7 @@
+Feedback
+
+- No tests
+- Auth overcomplicated
+- from authentication.models import User - we don't do this
+- likes_analitic = PostLike.objects.filter(like_published__range[kwargs['date_from'],kwargs['date_to']]); if len(likes_analitic) > 0 - she struggles with ORM a lot, what if there billions of data?
+- User activity does not work, actually I don't understand implementation...
